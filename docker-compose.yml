@@ -1,0 +1,48 @@
+﻿version: '3.9'
+
+services:
+  backend:
+    build: ./backend
+    container_name: todo_drf_backend
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app  # ローカルのコードをコンテナに同期
+    ports:
+      - "8000:8000"  # Django API 用ポート
+    depends_on:
+      - db  # DB コンテナが起動後に実行
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+
+  db:
+    image: postgres:15
+    container_name: todo_drf_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # DB データの永続化
+
+  frontend:
+    build: ./frontend
+    container_name: todo_vue_frontend
+    ports:
+      - "5173:5173"  # Vite 用ポート
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules  # node_modules をコンテナ内に保持
+    depends_on:
+      - backend  # Django 起動後にフロントエンドを起動
+
+volumes:
+  postgres_data:  # DB のデータ永続化用
