@@ -4,5 +4,5 @@ from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("todo/",include("todo.urls"))
+    path("api/",include("todo.urls"))
 ]

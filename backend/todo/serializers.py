@@ -2,7 +2,7 @@
 from .models import Todo
 
 
-class TodoSerializer(serializers.Serializer):
+class TodoSerializer(serializers.ModelSerializer):
     """Todoシリアライズ"""
 
     class Meta:
