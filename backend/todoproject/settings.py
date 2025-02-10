@@ -133,5 +133,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# 自身以外のオリジンのHTTPリクエスト内にクッキーを含めることを許可する
-CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_ALL_ORIGINS = True  # 允许 Vue 前端访问 API
+
