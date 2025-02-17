@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
+    "rest_framework.authtoken",
+    "drf_spectacular",
     "corsheaders",
-    # "user",
+    "user",
     "todo",
 ]
 
@@ -133,6 +135,8 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# ユーザーモデルを指定する
+AUTH_USER_MODEL = "user.User"
 
-CORS_ALLOW_ALL_ORIGINS = True  # 允许 Vue 前端访问 API
-
+# 允许 Vue 前端访问 API
+CORS_ALLOW_ALL_ORIGINS = True
